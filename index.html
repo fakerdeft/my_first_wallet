@@ -29,13 +29,11 @@
             });
             
             const makeQrCode = (newAddress) => {
-                let qrcode = new QRCode(document.getElementById("qrcode"), {
-                    width: 250, height: 250
-                });
+                let qrcode = new QRCode(document.getElementById("qrcode"), {width: 250, height: 250, text: newAddress});
                 qrcode.makeCode(newAddress);
             };
 
-
+            // 계좌를 생성하고 QRCode로 보여주는 함수
             $("#btnNewAccount").click(function () {
                 alert('계좌생성');
                 const account = web3.eth.accounts.create();
@@ -44,10 +42,16 @@
                 makeQrCode(account.address);
             });
 
+            // 계좌번호를 가지고 해당 계좌의 잔액을 확인하는 함수
             $("#btnCheckBalance").click(function () {
                 alert('잔액확인');
+                const fromAddress = $("#fromAddress").val();
+                web3.eth.getBalance(fromAddress).then(balance => {
+                    console.log('내 계좌의 잔액', balance);
+                });
             });
 
+            // 
             $("#btnSendEther").click(function () {
                 alert('송금하기');
             });
@@ -58,13 +62,12 @@
 
 <body>
     <header class="container">
-        <div>
-            <h2>이더리움 전자지갑</h2>
+        <div><h2>이더리움 전자지갑</h2></div>
+        <div class="p-2">
+            <button id="btnNewAccount">계좌생성</button>
+            <button id="btnCheckBalance">잔액확인</button>
+            <button id="btnSendEther">송금하기</button>
         </div>
-        <div class="p-2"></div>
-        <button id="btnNewAccount">계좌생성</button>
-        <button id="btnCheckBalance">잔액확인</button>
-        <button id="btnSendEther">송금하기</button>
     </header>
     <section class="container">
         <div class="py-3">
@@ -72,20 +75,24 @@
             <div class="row border" id="accountList">아무것도 없음</div>
         </div>
         <div class="row py-3">
+            <div class="col-4"><span class="h5">생성된 계좌(new address)</span></div>
+            <div class="col"><input id="newAddress" class="w-100" value=""></div>
+        </div>
+        <div class="row py-3">
             <div class="col-4"><span class="h5">송신처(from address)</span></div>
             <div class="col"><input id="fromAddress" class="w-100" value=""></div>
         </div>
         <div class="row py-3">
             <div class="col-4"><span class="h5">수신처(to address)</span></div>
-            <div class="col"><input id="toAddress" class="w-100" value="" /></div>
+            <div class="col"><input id="toAddress" class="w-100" value=""></div>
         </div>
         <div class="row py-3">
             <div class="col-4"><span class="h5">보낼 코인(ether)</span></div>
-            <div class="col"><input id="sendCoin" class="w-100" value="1" /></div>
+            <div class="col"><input id="sendCoin" class="w-100" value="1"></div>
         </div>
         <div class="row py-3">
             <div class="col-4"><span class="h5">비밀번호(account private key)</span></div>
-            <div class="col"><input type="password" id="yourPw" class="w-100" value="0x4dbbe8bf947a16456cf4e8f9736d5be3a2967e1380c69b5051e822c6069344e1" /></div>
+            <div class="col"><input type="password" id="yourPw" class="w-100" value="0x4dbbe8bf947a16456cf4e8f9736d5be3a2967e1380c69b5051e822c6069344e1"></div>
         </div>
     </section>
     <div class="container py-3">
@@ -93,9 +100,7 @@
         <div id="qrcode" style="width: 250px; height: 250px" class="border"></div>
     </div>
     <div class="container">
-        <div>
-            <h4>Response Message</h4>
-        </div>
+        <div><h4>Response Message</h4></div>
         <div id="message" class="border">아무런 메세지가 없음</div>
     </div>
 </body>
