@@ -46,12 +46,14 @@
             $("#btnCheckBalance").click(function () {
                 alert('잔액확인');
                 const fromAddress = $("#fromAddress").val();
-                web3.eth.getBalance(fromAddress).then(balance => {
-                    console.log('내 계좌의 잔액', balance);
+                web3.eth.getBalance(fromAddress).then(balanceWei => {
+                    const myEther = web3.utils.fromWei(balanceWei, 'ether');
+                    console.log('내 계좌의 잔액', myEther);
+                    $("#message").text('잔액은 ' + myEther + 'ETH');
                 });
             });
 
-            // 
+            // 입력한 송,수신 계좌간에 ether를 송금하는 함수
             $("#btnSendEther").click(function () {
                 alert('송금하기');
             });
