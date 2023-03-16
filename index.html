@@ -6,6 +6,18 @@
     <script>
       $(document).ready(function () {
         console.log("log jquery loading completed");
+        
+        $("#btnNewAccount").click(function(){
+            alert('계좌생성');
+        });
+
+        $("#btnCheckBalance").click(function(){
+            alert('잔액확인');
+        });
+
+        $("#btnSendEther").click(function(){
+            alert('송금하기');
+        });
       });
     </script>
     <title>My First Wallet</title>
@@ -14,9 +26,9 @@
     <header class="container">
         <div><h2>이더리움 전자지갑</h2></div>
         <div class="p-2"></div>
-        <button id="newAccount">계좌생성</button>
-        <button id="checkBalance">잔액확인</button>
-        <button id="sendEther">송금하기</button>
+        <button id="btnNewAccount">계좌생성</button>
+        <button id="btnCheckBalance">잔액확인</button>
+        <button id="btnSendEther">송금하기</button>
     </header>
     <section class="container">
         <div class="py-3">
