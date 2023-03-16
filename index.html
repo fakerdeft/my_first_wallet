@@ -29,7 +29,7 @@
             });
             
             const makeQrCode = (newAddress) => {
-                let qrcode = new QRCode(document.getElementById("qrcode"), {width: 250, height: 250, text: newAddress});
+                let qrcode = new QRCode(document.getElementById("qrcode"), {width: 200, height: 200, text: newAddress});
                 qrcode.makeCode(newAddress);
             };
 
@@ -124,7 +124,7 @@
     </section>
     <div class="container py-3">
         <div><h4>계좌 QRCODE</h4></div>
-        <div id="qrcode" style="width: 250px; height: 250px" class="border"></div>
+        <div id="qrcode" style="width: 200px; height: 200px" class="border"></div>
     </div>
     <div class="container">
         <div><h4>Response Message</h4></div>
